@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>NPTEL 4.0 IIoT · Exam Prep Pro</title>
+<link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">4.0</div><div><b>IIoT Prep</b><span>NPTEL · 334 Qs</span></div></div>
+    <nav>
+      <button class="nav active" data-view="dashboard">🏠 Dashboard</button>
+      <button class="nav" data-view="practice">📝 Practice</button>
+      <button class="nav" data-view="mock">⏱ Mock Exam</button>
+      <button class="nav" data-view="hitlist">⚡ Hitlist</button>
+    </nav>
+    <div class="side-foot">
+      <div class="mini-stats"><div><b id="st-done">0</b><span>done</span></div><div><b id="st-acc">–</b><span>acc.</span></div><div><b id="st-streak">0🔥</b><span>streak</span></div></div>
+      <button id="btn-reset" class="btn ghost sm">Reset progress</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="top-title"><b id="view-title">Dashboard</b><span id="view-sub" class="muted">Exam-ready in days, not weeks</span></div>
+      <div class="top-act">
+        <input id="search" type="search" placeholder="Search all 334 Qs…">
+        <span class="pill-acc"><b id="st-total">333</b> Qs</span>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- DASHBOARD -->
+      <section id="view-dashboard" class="view active">
+        <div class="hero">
+          <div><h2>100-mark exam. 100 MCQs. Zero surprises.</h2><p>334 Qs (213 PDF + 121 researched) PYQ variants (2022–2025 patterns). Every answer explains <b>why</b>.</p>
+          <div class="hero-act"><button class="btn primary lg" data-goto="practice">Continue practice →</button><button class="btn lg" data-goto="mock">Start 100-Q mock</button></div></div>
+          <div class="hero-card"><div class="ring" id="ring"><span id="ring-txt">0%</span></div><div class="muted small">overall accuracy</div><div class="bar"><div id="prog-fill-top"></div></div><div id="prog-label" class="small muted">0 / 333 attempted</div></div>
+        </div>
+        <div class="grid-4" id="stat-cards"></div>
+        <h3>Weeks <span class="muted small">tap to practice one week</span></h3>
+        <div class="weeks-grid" id="weeks-grid"></div>
+        <h3>Quick revision</h3>
+        <div class="grid-3">
+          <button class="qact" id="qa-wrong">❌ Wrong (<b id="c-wrong">0</b>)<span>Fix mistakes first</span></button>
+          <button class="qact" id="qa-flag">★ Flagged (<b id="c-flag">0</b>)<span>Your marked traps</span></button>
+          <button class="qact" id="qa-unseen">🆕 Unseen (<b id="c-new">0</b>)<span>Fresh questions</span></button>
+        </div>
+      </section>
+
+      <!-- PRACTICE -->
+      <section id="view-practice" class="view">
+        <div class="card filters">
+          <div class="weeks" id="week-chips"></div>
+          <div class="f-row">
+            <select id="filter-state"><option value="all">All</option><option value="unseen">Unseen</option><option value="wrong">Wrong</option><option value="correct">Correct</option><option value="flagged">Flagged</option></select>
+            <label class="chk"><input type="checkbox" id="opt-shuffle" checked> Shuffle</label>
+            <label class="chk"><input type="checkbox" id="opt-instant" checked> Instant feedback</label>
+            <button id="btn-start" class="btn primary sm">Apply</button>
+            <span id="list-count" class="muted small"></span>
+          </div>
+        </div>
+        <div class="prac-layout">
+          <div class="card qcard">
+            <div class="qmeta"><span id="q-count">Q 1/1</span><span id="q-week" class="pill">W1</span><span id="q-id" class="qid"></span><button id="btn-flag" class="flag">☆</button></div>
+            <div class="bar slim"><div id="prog-fill"></div></div>
+            <h2 id="q-text">Loading…</h2>
+            <div id="q-opts"></div>
+            <div id="q-feedback" class="feedback hidden"></div>
+            <div class="qnav"><button id="btn-prev" class="btn">←</button><button id="btn-clear" class="btn ghost">↺ Retry</button><button id="btn-reveal" class="btn ghost">👁 Answer</button><button id="btn-next" class="btn primary">Next →</button></div>
+            <div class="hint">Keys <kbd>1-4</kbd> <kbd>←→</kbd> <kbd>F</kbd> flag</div>
+          </div>
+          <div class="card pal"><h4>Palette <span id="pal-count" class="muted"></span></h4><div id="qmap"></div><div id="week-stats" class="wstats"></div></div>
+        </div>
+      </section>
+
+      <!-- MOCK -->
+      <section id="view-mock" class="view">
+        <div class="card" id="mock-setup">
+          <h2>Proctored-style mock</h2><p class="muted">100 random Qs · 120 min · feedback locked till submit · palette + auto-submit. Mirrors the 100-mark paper.</p>
+          <div class="mock-setup-row"><label>Questions <select id="mock-n"><option>25</option><option selected>100</option><option>50</option></select></label><label>Minutes <select id="mock-min"><option>30</option><option selected>120</option><option>60</option></select></label><button id="btn-mock-start" class="btn primary lg">Start exam →</button></div>
+        </div>
+        <div class="card hidden" id="mock-exam">
+          <div class="mock-head"><span id="mock-count">Q 1/100</span><span id="timer" class="timer">02:00:00</span><button id="btn-mock-submit" class="btn danger sm">Submit</button></div>
+          <div class="mock-layout"><div><h2 id="m-qtext"></h2><div id="m-opts"></div><div class="qnav"><button id="m-prev" class="btn">←</button><button id="m-next" class="btn primary">Next →</button></div></div><div><h4>Palette</h4><div id="m-map"></div></div></div>
+        </div>
+        <div class="card hidden" id="mock-result"><h2>Result</h2><p id="result-text"></p><div id="result-break"></div><button class="btn primary" data-goto="practice">Revise wrong in Practice →</button></div>
+      </section>
+
+      <!-- HITLIST -->
+      <section id="view-hitlist" class="view">
+        <div class="grid-2">
+          <div class="card"><h3>🔢 Numbers to memorize cold</h3><table class="tbl"><tr><th>Fact</th><th>Value</th></tr><tr><td>Zigbee 2.4 GHz</td><td>OQPSK · 250 kbps · 10–100 m</td></tr><tr><td>Z-Wave</td><td>100 kbps · sub-GHz · home</td></tr><tr><td>Sigfox</td><td>100 bps · 12 B · 140/day</td></tr><tr><td>LoRa</td><td>CSS · LoRaWAN net layer</td></tr><tr><td>802.15.4</td><td>DSSS</td></tr><tr><td>ModBus-TCP</td><td>10 connections</td></tr><tr><td>Profibus DP</td><td>32 devices</td></tr><tr><td>CC-Link (keyed)</td><td>13.56 MHz</td></tr><tr><td>DS1621</td><td>9-bit · I2C</td></tr><tr><td>URLLC</td><td>99.9999% · ~1 ms</td></tr><tr><td>PLM steps</td><td>10</td></tr><tr><td>mmWave</td><td>30–300 GHz</td></tr><tr><td>TSN</td><td>802.1Q</td></tr></table></div>
+          <div class="card"><h3>🏢 Companies — who = what</h3><table class="tbl"><tr><th>Who</th><th>What</th></tr><tr><td>Kaeser</td><td>Air-as-a-Service (per m³)</td></tr><tr><td>Maersk</td><td>Reefer containers + blockchain</td></tr><tr><td>Hitachi Lumada</td><td>AI analytics platform</td></tr><tr><td>GE Predix</td><td>Digital Twin</td></tr><tr><td>Siemens MindSphere</td><td>PaaS</td></tr><tr><td>Siemens Catalyst</td><td>SaaS app</td></tr><tr><td>C3 Data Lake</td><td>RESTful</td></tr><tr><td>Meshify</td><td>Now + Tracker</td></tr><tr><td>Crosser</td><td>any protocol/PLC/HW</td></tr><tr><td>Toshiba</td><td>cloud-train edge-infer DL</td></tr><tr><td>Transco</td><td>LoRaWAN conveyors</td></tr><tr><td>GE</td><td>coined Industrial Internet</td></tr></table></div>
+        </div>
+        <div class="card"><h3>🪤 Look-alike traps</h3><ul class="traps"><li><b>Spear phishing</b> = targeted · plain phishing = mass</li><li><b>ADC</b> in (sensor) · <b>DAC</b> out (actuator)</li><li><b>IP</b> logical/changes · <b>MAC</b> in NIC/fixed</li><li><b>MQTT</b> TCP+broker · <b>CoAP</b> UDP+REST</li><li><b>n-type + reducing</b> = resistance <b>decreases</b></li><li><b>Descriptive</b> what happened · <b>Diagnostic</b> why · <b>Predictive</b> what will · <b>Prognostic</b> RUL · <b>Prescriptive</b> what to do</li><li><b>K-Means</b> hard · <b>FCM</b> soft (multi-cluster)</li><li><b>Operations</b> manages assets · <b>Information</b> transforms data · <b>Application</b> business rules</li><li><b>Hybrid</b> = 2+ clouds · <b>Community</b> = shared orgs</li><li><b>QoS 0/1/2</b> = at-most / at-least / exactly</li></ul></div>
+      </section>
+    </main>
+  </div>
+</div>
+<nav class="mnav"><button class="active" data-view="dashboard">🏠</button><button data-view="practice">📝</button><button data-view="mock">⏱</button><button data-view="hitlist">⚡</button></nav>
+
+<script src="data/week1.js?v=4"></script><script src="data/week2.js?v=4"></script><script src="data/week3.js?v=4"></script><script src="data/week4.js?v=4"></script><script src="data/week5.js?v=4"></script><script src="data/week6.js?v=4"></script><script src="data/week7.js?v=4"></script><script src="data/week8.js?v=4"></script><script src="data/week9.js?v=4"></script><script src="data/week10.js?v=4"></script><script src="data/week11.js?v=4"></script><script src="data/week12.js?v=4"></script><script src="data/extra.js?v=4"></script><script src="data/pyq_extra_A.js?v=4"></script><script src="data/pyq_extra_B.js?v=4"></script>
+<script src="app.js?v=4"></script>
+</body>
+</html>
